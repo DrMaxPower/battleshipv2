@@ -1,4 +1,4 @@
-""" BATTLEFIELD """
+""" BATTLESHIP """
 import random
 # all input data needs to be in a new row
 # on Heroku: key = PORT, value = 8000
@@ -82,6 +82,7 @@ def input_player_ship():
 
 
 def place_ship_computer():
+    """ """
     computer_dict = {
         'E': {1: '*', 2: '*', 3: '*', 4: '*'},
         'F': {1: '*', 2: '*', 3: '*', 4: '*'},
@@ -102,34 +103,74 @@ def place_ship_computer():
 
 
 def player_shoot():
-    pass
+    """ """
+    # turns = 5
+    # input place_ship_computer dictonary
+    # input frpm player where to shoot
+    # import player_score 
+
+    print("Your turn to shoot")
+    print("Enter where you think enemys at.")
+    shot_letter = input("typ letter A - D\n").upper()      
+    while (len(shot_letter) != 1) or (shot_letter not in 'ABCD'):
+        print("Not valid data, set your first letter.")
+        shot_letter = input("typ letter A - D\n").upper()
+        
+    shot_column = input("typ a int 1 - 4\n")
+
+    while (len(shot_column) != 1) or (shot_column not in '1234'):
+        print("Not valid data, set your first int.")
+        shot_column = input("typ int 1 - 4\n")
+
+    shot_column = int(shot_column)
 
 
-def board():
-    """ player and compter board """
+    # chage COMPUTERBOARD to valid dict from computer board 
+    # FIX BETTER THEN xx etc a list of shot_letter and shot_column
+    if COMPUTERBOARD[shot_letter][shot_column] == 'xx':
+        print("You have sunk an shit there already")
+        shot_letter = input("typ letter A - D\n").upper()
+        shot_column = int(input("typ a int 1 - 4\n"))
 
-    # Players Board
-    p = {
-        'A': {1: 'x', 2: '*', 3: '*', 4: '*'},
-        'B': {1: '*', 2: '*', 3: 'x', 4: '*'},
-        'C': {1: '*', 2: '*', 3: '*', 4: '*'},
-        'D': {1: 'x', 2: 'o', 3: '*', 4: '*'}
-    }
-
-    # Computers Board
-    c = {
-        'E': {1: 'x', 2: '*', 3: '*', 4: '*'},
-        'F': {1: '*', 2: '*', 3: '*', 4: '*'},
-        'G': {1: '*', 2: 'x', 3: '*', 4: '*'},
-        'H': {1: '*', 2: '*', 3: 'x', 4: '*'}
-    }
-
-    return p, c
+    # chage COMPUTERBOARD to valid dict from computer board
+    elif COMPUTERBOARD[shot_letter][shot_column] == 'm':
+        print("You have already tried to shoot there")
+        shot_letter = input("typ letter A - D\n").upper()
+        shot_column = int(input("typ a int 1 - 4\n"))
+    
+    elif COMPUTERBOARD[shot_letter][shot_column] == 'x':
+        print(" You hit an enemy ship ")
+        player_score += 1
 
 
+
+    # return hit, player_score or miss to board_ternminal
+    
+
+def computers_tur_to_shoot():
+    """ """
+    # import player_ship_dict
+    # import computer_score 
+    computer_int_letter_shot = random.randint(69, 72)
+    computer_letter_shot = chr(computer_int_letter_shot)
+    computer_int_shot = random.randint(1, 4)
+
+    if player_ship_dict[computer_letter_shot][computer_int_shot] == 'xx':
+        computer_int_letter_shot = random.randint(69, 72)
+        computer_int_shot = random.randint(1, 4)
+    
+    elif player_ship_dict[computer_letter_shot][computer_int_shot] == 'm':
+        computer_int_letter_shot = random.randint(69, 72)
+        computer_int_shot = random.randint(1, 4)
+
+    elif player_ship_dict[computer_letter_shot][computer_int_shot] == 'x':
+        computer_score += 1
+
+        
 def score():
     """ seting score for player and computer """
 
+    # c = computer dict board with ships on
     player_score = 0
     for j in range(4):
         letter_computer = chr(69+j)
@@ -138,6 +179,7 @@ def score():
             if item == 'x':
                 player_score += 1
 
+    # p = player dict board with ships on
     computer_score = 0
     for i in range(4):
         letter_player = chr(65+i)
@@ -149,7 +191,7 @@ def score():
     return player_score, computer_score
 
 
-def board_ternminal(p, c, player_score, computer_score):
+def board_ternminal():
     """"""
     tunrs = 3
 
@@ -158,7 +200,7 @@ def board_ternminal(p, c, player_score, computer_score):
     mine = '¤ '
 
     print(" "*20)
-    print("PLAYER", " "*3, f"SCORE: {player_score}")
+    # print("PLAYER", " "*3, f"SCORE: {player_score}")
     print('   ', '1', '2', '3', '4')
     print('+', roof*3, '+')
     print('A', wall, p['A'][1], p['A'][2], p['A'][3], p['A'][4], wall, " * : water ")
@@ -176,7 +218,7 @@ def board_ternminal(p, c, player_score, computer_score):
     print('H', wall, c['H'][1], c['H'][2], c['H'][3], c['H'][4], wall)
     print('+', roof*3, '+')
     print('  ', '1', '2',  '3', '4')
-    print("COMPUTER", " ", f"SCORE: {computer_score}")
+    # print("COMPUTER", " ", f"SCORE: {computer_score}")
     print(" "*20)
 
 
