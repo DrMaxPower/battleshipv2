@@ -4,19 +4,101 @@ import random
 # on Heroku: key = PORT, value = 8000
 
 
-def input_player():
-    pass
+def input_player_ship():
+    """ select what key in dict Player wahts to use """
+    p = {
+        'A': {1: '*', 2: '*', 3: '*', 4: '*'},
+        'B': {1: '*', 2: '*', 3: '*', 4: '*'},
+        'C': {1: '*', 2: '*', 3: '*', 4: '*'},
+        'D': {1: '*', 2: '*', 3: '*', 4: '*'}
+    }
+    
+    # First Ship Position
+    first_ship_letter = input("typ letter A - D\n").upper()      
+    while (len(first_ship_letter) != 1) or (first_ship_letter not in 'ABCD'):
+        print("Not valid data, set your first letter.")
+        first_ship_letter = input("typ letter A - D\n").upper()
+        
+    first_ship_int = input("typ a int 1 - 4\n")
 
+    while (len(first_ship_int) != 1) or (first_ship_int not in '1234'):
+        print("Not valid data, set your first int.")
+        first_ship_int = input("typ int 1 - 4\n")
 
-def validate_input_player():
-    pass
+    first_ship_int = int(first_ship_int)
+
+    if p[first_ship_letter][first_ship_int] == 'o':
+        first_ship_letter = input("typ letter A - D\n").upper()
+        first_ship_int = int(input("typ a int 1 - 4\n"))
+    else:
+        p[first_ship_letter][first_ship_int] = 'o'
+
+    print(f"Your position is:\n {first_ship_letter} {first_ship_int}")
+
+    # Second Ship Position
+    second_ship_letter = input("typ letter A - D\n").upper()      
+    while (len(second_ship_letter) != 1) or (second_ship_letter not in 'ABCD'):
+        print("Not valid data, set your second letter.")
+        second_ship_letter = input("typ letter A - D\n").upper()
+        
+    second_ship_int = input("typ a int 1 - 4\n")
+
+    while (len(second_ship_int) != 1) or (second_ship_int not in '1234'):
+        print("Not valid data, set your second int.")
+        second_ship_int = input("typ int 1 - 4\n")
+
+    second_ship_int = int(second_ship_int)
+
+    if p[second_ship_letter][second_ship_int] == 'o':
+        second_ship_letter = input("typ letter A - D\n").upper()
+        second_ship_int = int(input("typ a int 1 - 4\n"))
+    else:
+        p[second_ship_letter][second_ship_int] = 'o'
+
+    print(f"Your position is:\n {first_ship_letter}{first_ship_int} \
+         {second_ship_letter} {second_ship_int}")
+
+    # third Ship Position
+    third_ship_letter = input("typ letter A - D\n").upper()      
+    while (len(third_ship_letter) != 1) or (third_ship_letter not in 'ABCD'):
+        print("Not valid data, set your third letter.")
+        third_ship_letter = input("typ letter A - D\n").upper()
+        
+    third_ship_int = input("typ a int 1 - 4\n")
+
+    while (len(third_ship_int) != 1) or (third_ship_int not in '1234'):
+        print("Not valid data, set your third int.")
+        third_ship_int = input("typ int 1 - 4\n")
+
+    third_ship_int = int(third_ship_int)
+
+    if p[third_ship_letter][third_ship_int] == 'o':
+        third_ship_letter = input("typ letter A - D\n").upper()
+        third_ship_int = int(input("typ a int 1 - 4\n"))
+    else:
+        p[third_ship_letter][third_ship_int] = 'o'
+
+    return p
 
 
 def place_ship_computer():
-    pass
+    computer_dict = {
+        'E': {1: '*', 2: '*', 3: '*', 4: '*'},
+        'F': {1: '*', 2: '*', 3: '*', 4: '*'},
+        'G': {1: '*', 2: '*', 3: '*', 4: '*'},
+        'H': {1: '*', 2: '*', 3: '*', 4: '*'}
+    }
+    for i in range(3):
+        letter_row = chr(random.randint(69, 72))
+        int_column = random.randint(1, 4)
 
-def place_ship_player():
-    pass
+        while computer_dict[letter_row][int_column] == 'o':
+            letter_row = chr(random.randint(69, 72))
+            int_column = random.randint(1, 4)
+        computer_dict[letter_row][int_column] = 'o'
+
+    print(computer_dict)
+    return computer_dict
 
 
 def player_shoot():
