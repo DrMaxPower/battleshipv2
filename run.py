@@ -31,11 +31,18 @@ def player_board():
     list_rows_a_d = [row_a, row_b, row_c, row_d]
     letters_to_int = {'A': 0, 'B': 1, 'C': 2, 'D': 3}
 
-    print("Type where you like to place ship:")
-    print("Example: A3 or C4 ")
+
+    print('   ', '1', '2', '3', '4')
+    print('+', roof*3, '+')
+    print('A', wall, row_a[1], row_a[2], row_a[3], row_a[4], wall, " * : water")
+    print('B', wall, row_b[1], row_b[2], row_b[3], row_b[4], wall, " o : ship")
+    print('C', wall, row_c[1], row_c[2], row_c[3], row_c[4], wall, " x : hit")
+    print('D', wall, row_d[1], row_d[2], row_d[3], row_d[4], wall)
+
     ship_counts = 0
+
     while ship_counts < 3:
-        input_player = input("where to place ship:\n")
+        input_player = input("where to place ship.\nExample: A3 or C4\n")
 
         r = re.compile("([a-dA-D]+)([1-4]+)")
         m = r.match(input_player)
@@ -73,6 +80,13 @@ def player_board():
             print("lets start the game")
 
 
+    # computer playground
+    row_a_comp = {1: '*', 2: '*', 3: '*', 4: '*'}
+    row_b_comp = {1: '*', 2: '*', 3: '*', 4: '*'}
+    row_c_comp = {1: '*', 2: '*', 3: '*', 4: '*'}
+    row_d_comp = {1: '*', 2: '*', 3: '*', 4: '*'}
+
+
     # score_computer
     counter_row_a = Counter(row_a.values())
     hit_on_row_a = counter_row_a['x']
@@ -92,13 +106,11 @@ def player_board():
 
         )
 
-
-
     # GameBoard
     print(" "*20)
     print('   ', '1', '2', '3', '4')
     print('+', roof*3, '+')
-    print('A', wall, row_a[1], row_a[2], row_a[3], row_a[4], wall, " * : water ")
+    print('A', wall, row_a[1], row_a[2], row_a[3], row_a[4], wall, " * : water")
     print('B', wall, row_b[1], row_b[2], row_b[3], row_b[4], wall, " o : ship")
     print('C', wall, row_c[1], row_c[2], row_c[3], row_c[4], wall, " x : hit")
     print('D', wall, row_d[1], row_d[2], row_d[3], row_d[4], wall)
@@ -106,6 +118,15 @@ def player_board():
     print('  +', mine*4)
     print(f"  Turn: {tunrs}")
     print('  +', mine*4)
+
+    print('E', wall, row_a_comp[1], row_a_comp[2], row_a_comp[3], row_a_comp[4], wall, " 1 : Position your ship")
+    print('F', wall, row_b_comp[1], row_b_comp[2], row_b_comp[3], row_b_comp[4], wall, " 2 : Enter your shoot")
+    print('G', wall, row_c_comp[1], row_c_comp[2], row_c_comp[3], row_c_comp[4], wall)
+    print('H', wall, row_d_comp[1], row_d_comp[2], row_d_comp[3], row_d_comp[4], wall)
+    print('+', roof*3, '+')
+    print('  ', '1', '2',  '3', '4')
+    # print("COMPUTER", " ", f"SCORE: {computer_score}")
+    print(" "*20)
 
 
 player_board()
