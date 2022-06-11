@@ -11,7 +11,7 @@ def play_battle_ship():
     * input  where to put ship
     * input where computer shoot
     """
-    os.system('clear')
+    os.system('cls')
     tunrs = 3
     wall = '|'
     roof = '-=-'
@@ -66,7 +66,7 @@ def play_battle_ship():
         [ship_on_row_a, ship_on_row_b, ship_on_row_c, ship_on_row_d]
 
         )
-        os.system('clear')
+        os.system('cls')
         print('   ', '1', '2', '3', '4')
         print('+', roof*3, '+')
         print('A', wall, row_a[1], row_a[2], row_a[3], row_a[4], wall, "* : water")
@@ -74,7 +74,7 @@ def play_battle_ship():
         print('C', wall, row_c[1], row_c[2], row_c[3], row_c[4], wall, "x : hit")
         print('D', wall, row_d[1], row_d[2], row_d[3], row_d[4], wall)
         if ship_counts == 3:
-            os.system('clear')
+            os.system('cls')
             print("lets start the game")
 
     # computer playground not shown
@@ -129,7 +129,7 @@ def play_battle_ship():
     
     score_player = 0
     score_computer = 0
-    os.system('clear')
+    os.system('cls')
     while (score_player < 3) or (score_computer < 3):
         # GameBoard
         print("PLAYER", " ", f"SCORE: {score_player}")
@@ -186,7 +186,7 @@ def play_battle_ship():
 
 
         # GameBoard
-        os.system('clear')
+        os.system('cls')
         print(" "*20)
         print("COMPUTER", " ", f"SCORE: {score_player}")
         print('   ', '1', '2', '3', '4')
@@ -209,7 +209,7 @@ def play_battle_ship():
         print("COMPUTER", " ", f"SCORE: {score_computer}")
         print(" "*20)
 
-        os.system('clear')
+        os.system('cls')
 
     # GameBoard
     print(" "*20)
@@ -222,7 +222,7 @@ def play_battle_ship():
     print('D', wall, row_d[1], row_d[2], row_d[3], row_d[4], wall)
 
     print('  +', mine*4)
-    print(f"  Turn: {tunrs}")
+    print('  ', '#'*10)
     print('  +', mine*4)
 
     print('E', wall, row_a_comp[1], row_a_comp[2], row_a_comp[3], row_a_comp[4], wall, " 1 : Position your ship")
