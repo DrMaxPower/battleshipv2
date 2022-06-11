@@ -5,10 +5,7 @@ import os
 from collections import Counter
 
 
-
-
-
-def player_board():
+def play_battle_ship():
     """
     playerboard is made of four dictionary
     * input  where to put ship
@@ -87,6 +84,13 @@ def player_board():
     row_c_comp = {1: '*', 2: '*', 3: '*', 4: '*'}
     row_d_comp = {1: '*', 2: '*', 3: '*', 4: '*'}
 
+    list_row_comp = [
+        row_a_comp,
+        row_b_comp,
+        row_c_comp,
+        row_d_comp,
+    ]
+
     # computer playground not shown
     row_a_comp_hide = {1: '*', 2: '*', 3: '*', 4: '*'}
     row_b_comp_hide = {1: '*', 2: '*', 3: '*', 4: '*'}
@@ -118,31 +122,97 @@ def player_board():
         comp_ship_on_row_d = value_row_d['o']
 
         ship_counts_computer = sum(
-
-            [comp_ship_on_row_a, comp_ship_on_row_b, comp_ship_on_row_c, comp_ship_on_row_d]
-
+            [
+                comp_ship_on_row_a, comp_ship_on_row_b,
+                comp_ship_on_row_c, comp_ship_on_row_d
+            ]
         )
+    
+    score_player = 0
+    score_computer = 0
+    while (score_player < 3) or (score_computer < 3):
+        os.system('clear')
+        # GameBoard
+        print(" "*20)
+        print('   ', '1', '2', '3', '4')
+        print('+', roof*3, '+')
+        print('A', wall, row_a[1], row_a[2], row_a[3], row_a[4], wall, '* : water')
+        print('B', wall, row_b[1], row_b[2], row_b[3], row_b[4], wall, "o : ship")
+        print('C', wall, row_c[1], row_c[2], row_c[3], row_c[4], wall, "x : hit")
+        print('D', wall, row_d[1], row_d[2], row_d[3], row_d[4], wall)
+
+        print('  +', mine*4)
+        print(f"  Turn: {tunrs}")
+        print('  +', mine*4)
+
+        print('E', wall, row_a_comp[1], row_a_comp[2], row_a_comp[3], row_a_comp[4], wall, " 1 : Position your ship")
+        print('F', wall, row_b_comp[1], row_b_comp[2], row_b_comp[3], row_b_comp[4], wall, " 2 : Enter your shoot")
+        print('G', wall, row_c_comp[1], row_c_comp[2], row_c_comp[3], row_c_comp[4], wall)
+        print('H', wall, row_d_comp[1], row_d_comp[2], row_d_comp[3], row_d_comp[4], wall)
+        print('+', roof*3, '+')
+        print('  ', '1', '2',  '3', '4')
+        # print("COMPUTER", " ", f"SCORE: {computer_score}")
+        print(" "*20)
+
+        input_player = input(f"Where to fire.\nExample: \
+        {random.choice(['E','F','G','H'])}{random.randint(1, 4)}\n")
+
+        r_f = re.compile("([e-hE-H]+)([1-4]+)")
+        m_f = r_f.match(input_player)
+        shoot_row = m_f.group(1).upper()
+        shoot_col = int(m_f.group(2))
+
+        # validate input data?
+        comp_letters_to_int = {'E': 0, 'F': 1, 'G': 2, 'H': 3}
+        if (list_row_comp_hide[comp_letters_to_int[shoot_row]][shoot_col] == 'o'):
+            list_row_comp[comp_letters_to_int[shoot_row]][shoot_col] = 'x'
 
 
-    # score_computer
-    counter_row_a = Counter(row_a.values())
-    hit_on_row_a = counter_row_a['x']
+        # score_player
+        counter_row_a_comp = Counter(row_a_comp.values())
+        hit_on_row_a_comp = counter_row_a_comp['x']
 
-    counter_row_b = Counter(row_b.values())
-    hit_on_row_b = counter_row_b['x']
+        counter_row_b_comp = Counter(row_b_comp.values())
+        hit_on_row_b_comp = counter_row_b_comp['x']
 
-    counter_row_c = Counter(row_c.values())
-    hit_on_row_c = counter_row_c['x']
+        counter_row_c_comp = Counter(row_c_comp_hide.values())
+        hit_on_row_c_comp = counter_row_c_comp['x']
 
-    counter_row_d = Counter(row_d.values())
-    hit_on_row_d = counter_row_d['x']
+        counter_row_d_comp = Counter(row_d_comp_hide.values())
+        hit_on_row_d_comp = counter_row_d_comp['x']
 
-    score_computer = sum(
+        score_player = sum(
+            [
+                hit_on_row_a_comp, hit_on_row_b_comp,
+                hit_on_row_c_comp, hit_on_row_d_comp
+                ]
+            )
 
-        [hit_on_row_a, hit_on_row_b, hit_on_row_c, hit_on_row_d]
 
-        )
+        # score_computer
+        counter_row_a_x = Counter(row_a.values())
+        hit_on_row_a_x = counter_row_a_x['x']
 
+        counter_row_b_x = Counter(row_b.values())
+        hit_on_row_b_x = counter_row_b_x['x']
+
+        counter_row_c_x = Counter(row_c.values())
+        hit_on_row_c_x = counter_row_c_x['x']
+
+        counter_row_d_x = Counter(row_d.values())
+        hit_on_row_d_x = counter_row_d_x['x']
+
+        score_computer = sum(
+
+            [hit_on_row_a_x, hit_on_row_b_x, hit_on_row_c_x, hit_on_row_d_x]
+
+            )
+
+
+
+
+    
+    
     # GameBoard
     print(" "*20)
     print('   ', '1', '2', '3', '4')
@@ -156,14 +226,14 @@ def player_board():
     print(f"  Turn: {tunrs}")
     print('  +', mine*4)
 
-    print('E', wall, row_a_comp_hide[1], row_a_comp_hide[2], row_a_comp_hide[3], row_a_comp_hide[4], wall, " 1 : Position your ship")
-    print('F', wall, row_b_comp_hide[1], row_b_comp_hide[2], row_b_comp_hide[3], row_b_comp_hide[4], wall, " 2 : Enter your shoot")
-    print('G', wall, row_c_comp_hide[1], row_c_comp_hide[2], row_c_comp_hide[3], row_c_comp_hide[4], wall)
-    print('H', wall, row_d_comp_hide[1], row_d_comp_hide[2], row_d_comp_hide[3], row_d_comp_hide[4], wall)
+    print('E', wall, row_a_comp[1], row_a_comp[2], row_a_comp[3], row_a_comp[4], wall, " 1 : Position your ship")
+    print('F', wall, row_b_comp[1], row_b_comp[2], row_b_comp[3], row_b_comp[4], wall, " 2 : Enter your shoot")
+    print('G', wall, row_c_comp[1], row_c_comp[2], row_c_comp[3], row_c_comp[4], wall)
+    print('H', wall, row_d_comp[1], row_d_comp[2], row_d_comp[3], row_d_comp[4], wall)
     print('+', roof*3, '+')
     print('  ', '1', '2',  '3', '4')
     # print("COMPUTER", " ", f"SCORE: {computer_score}")
     print(" "*20)
 
 
-player_board()
+play_battle_ship()
