@@ -12,7 +12,6 @@ def play_battle_ship():
     * input where computer shoot
     """
     os.system('cls')
-    tunrs = 3
     wall = '|'
     roof = '-=-'
     mine = '¤ '
@@ -130,7 +129,9 @@ def play_battle_ship():
     score_player = 0
     score_computer = 0
     os.system('cls')
-    while (score_player < 3) or (score_computer < 3):
+    while (score_player < 3) and (score_computer < 3):
+        # Game ends when score is ove 3
+
         # GameBoard
         print("PLAYER", " ", f"SCORE: {score_player}")
         print(" "*20)
@@ -142,15 +143,15 @@ def play_battle_ship():
         print('D', wall, row_d[1], row_d[2], row_d[3], row_d[4], wall)
 
         print('  +', mine*4)
-        print(f"  Turn: {tunrs}")
+        print('  ', '#'*9)
         print('  +', mine*4)
 
-        print('E', wall, row_a_comp[1], row_a_comp[2], row_a_comp[3], row_a_comp[4], wall, " 1 : Position your ship")
-        print('F', wall, row_b_comp[1], row_b_comp[2], row_b_comp[3], row_b_comp[4], wall, " 2 : Enter your shoot")
+        print('E', wall, row_a_comp[1], row_a_comp[2], row_a_comp[3], row_a_comp[4], wall, "1 : Position your ship")
+        print('F', wall, row_b_comp[1], row_b_comp[2], row_b_comp[3], row_b_comp[4], wall, "2 : Enter your shoot")
         print('G', wall, row_c_comp[1], row_c_comp[2], row_c_comp[3], row_c_comp[4], wall)
         print('H', wall, row_d_comp[1], row_d_comp[2], row_d_comp[3], row_d_comp[4], wall)
         print('+', roof*3, '+')
-        print('  ', '1', '2',  '3', '4')
+        print('   ', '1', '2',  '3', '4')
         print("COMPUTER", " ", f"SCORE: {score_computer}")
         print(" "*20)
 
@@ -172,44 +173,31 @@ def play_battle_ship():
 
 
         # Computer shooting at Player
-        computer_shoot = list_rows_a_d[random.randint(0, 3)][random.randint(1, 4)]
-        if computer_shoot == 'o':
-            computer_shoot = 'x'
+        random_row = random.randint(0, 3)
+        random_column = random.randint(1, 4)
+
+        while (list_rows_a_d[random_row][random_column] == 'x') or \
+            (list_rows_a_d[random_row][random_column] == 'm'):
+            random_row = random.randint(0, 3)
+            random_column = random.randint(1, 4)
+
+        if list_rows_a_d[random_row][random_column] == 'o':
+            list_rows_a_d[random_row][random_column] = 'x'
             score_computer += 1
-        if computer_shoot == 'x':
-            computer_shoot = list_rows_a_d[random.randint(0, 3)][random.randint(1, 4)]
-        if computer_shoot == 'm':
-            computer_shoot = list_rows_a_d[random.randint(0, 3)][random.randint(1, 4)]
-        if computer_shoot == '*':
-            computer_shoot = 'm'
 
-
-
-        # GameBoard
-        os.system('cls')
-        print(" "*20)
-        print("COMPUTER", " ", f"SCORE: {score_player}")
-        print('   ', '1', '2', '3', '4')
-        print('+', roof*3, '+')
-        print('A', wall, row_a[1], row_a[2], row_a[3], row_a[4], wall, '* : water')
-        print('B', wall, row_b[1], row_b[2], row_b[3], row_b[4], wall, "o : ship")
-        print('C', wall, row_c[1], row_c[2], row_c[3], row_c[4], wall, "x : hit")
-        print('D', wall, row_d[1], row_d[2], row_d[3], row_d[4], wall)
-
-        print('  +', mine*4)
-        print(f"  Turn: {tunrs}")
-        print('  +', mine*4)
-
-        print('E', wall, row_a_comp[1], row_a_comp[2], row_a_comp[3], row_a_comp[4], wall, " 1 : Position your ship")
-        print('F', wall, row_b_comp[1], row_b_comp[2], row_b_comp[3], row_b_comp[4], wall, " 2 : Enter your shoot")
-        print('G', wall, row_c_comp[1], row_c_comp[2], row_c_comp[3], row_c_comp[4], wall)
-        print('H', wall, row_d_comp[1], row_d_comp[2], row_d_comp[3], row_d_comp[4], wall)
-        print('+', roof*3, '+')
-        print('  ', '1', '2',  '3', '4')
-        print("COMPUTER", " ", f"SCORE: {score_computer}")
-        print(" "*20)
+        elif list_rows_a_d[random_row][random_column] == '*':
+            list_rows_a_d[random_row][random_column] = 'm'
 
         os.system('cls')
+
+    # End game when someone winnes
+    if score_player == 3:
+        score_player = 'Winner'
+        score_computer = 'Looser'
+
+    elif score_computer == 3:
+        score_computer = 'Winner'
+        score_player = 'Looser'
 
     # GameBoard
     print(" "*20)
@@ -222,15 +210,15 @@ def play_battle_ship():
     print('D', wall, row_d[1], row_d[2], row_d[3], row_d[4], wall)
 
     print('  +', mine*4)
-    print('  ', '#'*10)
+    print('  ', '#'*9)
     print('  +', mine*4)
 
-    print('E', wall, row_a_comp[1], row_a_comp[2], row_a_comp[3], row_a_comp[4], wall, " 1 : Position your ship")
-    print('F', wall, row_b_comp[1], row_b_comp[2], row_b_comp[3], row_b_comp[4], wall, " 2 : Enter your shoot")
+    print('E', wall, row_a_comp[1], row_a_comp[2], row_a_comp[3], row_a_comp[4], wall, "1 : Position your ship")
+    print('F', wall, row_b_comp[1], row_b_comp[2], row_b_comp[3], row_b_comp[4], wall, "2 : Enter your shoot")
     print('G', wall, row_c_comp[1], row_c_comp[2], row_c_comp[3], row_c_comp[4], wall)
     print('H', wall, row_d_comp[1], row_d_comp[2], row_d_comp[3], row_d_comp[4], wall)
     print('+', roof*3, '+')
-    print('  ', '1', '2',  '3', '4')
+    print('   ', '1', '2',  '3', '4')
     print(" "*20)
     print("COMPUTER", " ", f"SCORE: {score_computer}")
     print(" "*20)
