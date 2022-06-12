@@ -33,12 +33,11 @@ def play_battle_ship():
     print('A', wall, row_a[1], row_a[2], row_a[3], row_a[4], wall, "* : water")
     print('B', wall, row_b[1], row_b[2], row_b[3], row_b[4], wall, "o : ship")
     print('C', wall, row_c[1], row_c[2], row_c[3], row_c[4], wall, "x : hit")
-    print('D', wall, row_d[1], row_d[2], row_d[3], row_d[4], wall)
+    print('D', wall, row_d[1], row_d[2], row_d[3], row_d[4], wall, "m : miss")
 
     ship_counts = 0
 
     while ship_counts < 3:
-        
         # validate ship position
         while True:
             try:
@@ -79,18 +78,29 @@ def play_battle_ship():
         counter_row_d = Counter(row_d.values())
         ship_on_row_d = counter_row_d['o']
 
-        ship_counts = sum(
+        ship_counts = sum([
+            ship_on_row_a, ship_on_row_b, ship_on_row_c, ship_on_row_d
+        ])
 
-        [ship_on_row_a, ship_on_row_b, ship_on_row_c, ship_on_row_d]
-
-        )
         os.system('cls')
         print('   ', '1', '2', '3', '4')
         print('+', roof*3, '+')
-        print('A', wall, row_a[1], row_a[2], row_a[3], row_a[4], wall, "* : water")
-        print('B', wall, row_b[1], row_b[2], row_b[3], row_b[4], wall, "o : ship")
-        print('C', wall, row_c[1], row_c[2], row_c[3], row_c[4], wall, "x : hit")
-        print('D', wall, row_d[1], row_d[2], row_d[3], row_d[4], wall)
+        print(
+            'A', wall, row_a[1], row_a[2],
+            row_a[3], row_a[4], wall, "* : water"
+            )
+        print(
+            'B', wall, row_b[1], row_b[2],
+            row_b[3], row_b[4], wall, "o : ship"
+            )
+        print(
+            'C', wall, row_c[1], row_c[2],
+            row_c[3], row_c[4], wall, "x : hit"
+            )
+        print(
+            'D', wall, row_d[1], row_d[2],
+            row_d[3], row_d[4], wall, "m : miss"
+            )
         if ship_counts == 3:
             os.system('cls')
             print("lets start the game")
@@ -144,7 +154,7 @@ def play_battle_ship():
                 comp_ship_on_row_c, comp_ship_on_row_d
             ]
         )
-    
+
     score_player = 0
     score_computer = 0
     os.system('cls')
@@ -156,19 +166,43 @@ def play_battle_ship():
         print(" "*20)
         print('   ', '1', '2', '3', '4')
         print('+', roof*3, '+')
-        print('A', wall, row_a[1], row_a[2], row_a[3], row_a[4], wall, '* : water')
-        print('B', wall, row_b[1], row_b[2], row_b[3], row_b[4], wall, "o : ship")
-        print('C', wall, row_c[1], row_c[2], row_c[3], row_c[4], wall, "x : hit")
-        print('D', wall, row_d[1], row_d[2], row_d[3], row_d[4], wall)
+        print(
+            'A', wall, row_a[1], row_a[2],
+            row_a[3], row_a[4], wall, '* : water'
+            )
+        print(
+            'B', wall, row_b[1], row_b[2],
+            row_b[3], row_b[4], wall, "o : ship"
+            )
+        print(
+            'C', wall, row_c[1], row_c[2],
+            row_c[3], row_c[4], wall, "x : hit"
+            )
+        print(
+            'D', wall, row_d[1], row_d[2],
+            row_d[3], row_d[4], wall, "m : miss"
+            )
 
         print('  +', mine*4)
         print('  ', '#'*9)
         print('  +', mine*4)
 
-        print('E', wall, row_a_comp[1], row_a_comp[2], row_a_comp[3], row_a_comp[4], wall, "1 : Position your ship")
-        print('F', wall, row_b_comp[1], row_b_comp[2], row_b_comp[3], row_b_comp[4], wall, "2 : Enter your shoot")
-        print('G', wall, row_c_comp[1], row_c_comp[2], row_c_comp[3], row_c_comp[4], wall)
-        print('H', wall, row_d_comp[1], row_d_comp[2], row_d_comp[3], row_d_comp[4], wall)
+        print(
+            'E', wall, row_a_comp[1], row_a_comp[2],
+            row_a_comp[3], row_a_comp[4], wall, "1 : Position your ship"
+            )
+        print(
+            'F', wall, row_b_comp[1], row_b_comp[2],
+            row_b_comp[3], row_b_comp[4], wall, "2 : Enter your shoot"
+            )
+        print(
+            'G', wall, row_c_comp[1], row_c_comp[2],
+            row_c_comp[3], row_c_comp[4], wall
+            )
+        print(
+            'H', wall, row_d_comp[1], row_d_comp[2],
+            row_d_comp[3], row_d_comp[4], wall
+            )
         print('+', roof*3, '+')
         print('   ', '1', '2',  '3', '4')
         print("COMPUTER", " ", f"SCORE: {score_computer}")
@@ -177,12 +211,11 @@ def play_battle_ship():
         # random non used place to shoot example
         rand_player_shot_letter = random.choice(['E', 'F', 'G', 'H'])
         rand_player_shot_num = random.randint(1, 4)
-        
         while list_row_comp[comp_letters_to_int[rand_player_shot_letter]][rand_player_shot_num] != '*':
-            rand_player_shot_letter = random.choice(['E','F','G','H'])
+            rand_player_shot_letter = random.choice(['E', 'F', 'G', 'H'])
             rand_player_shot_num = random.randint(1, 4)
 
-        # Validate shoot input data 
+        # Validate shoot input data
         while True:
             try:
                 input_player = input(f"Where to fire.\nExample: \
@@ -193,7 +226,7 @@ def play_battle_ship():
                 shoot_row = m_f.group(1).upper()
                 shoot_col = m_f.group(2)
 
-                if (len(shoot_row) != 1):
+                if len(shoot_row) != 1:
                     print("Not an appropriate choice.")
 
                 elif shoot_row not in "EFGH":
@@ -210,10 +243,10 @@ def play_battle_ship():
         shoot_col = int(m_f.group(2))
 
         #  Player shooting at Computer
-        if (list_row_comp_hide[comp_letters_to_int[shoot_row]][shoot_col] == 'o'):
+        if list_row_comp_hide[comp_letters_to_int[shoot_row]][shoot_col] == 'o':
             list_row_comp[comp_letters_to_int[shoot_row]][shoot_col] = 'x'
             score_player += 1
-        elif (list_row_comp_hide[comp_letters_to_int[shoot_row]][shoot_col] == '*'):
+        elif list_row_comp_hide[comp_letters_to_int[shoot_row]][shoot_col] == '*':
             list_row_comp[comp_letters_to_int[shoot_row]][shoot_col] = 'm'
 
         # Computer shooting at Player
@@ -257,10 +290,22 @@ def play_battle_ship():
     print('  ', '#'*9)
     print('  +', mine*4)
 
-    print('E', wall, row_a_comp[1], row_a_comp[2], row_a_comp[3], row_a_comp[4], wall, "1 : Position your ship")
-    print('F', wall, row_b_comp[1], row_b_comp[2], row_b_comp[3], row_b_comp[4], wall, "2 : Enter your shoot")
-    print('G', wall, row_c_comp[1], row_c_comp[2], row_c_comp[3], row_c_comp[4], wall)
-    print('H', wall, row_d_comp[1], row_d_comp[2], row_d_comp[3], row_d_comp[4], wall)
+    print(
+        'E', wall, row_a_comp[1], row_a_comp[2],
+        row_a_comp[3], row_a_comp[4], wall, "1 : Position your ship"
+        )
+    print(
+        'F', wall, row_b_comp[1], row_b_comp[2],
+        row_b_comp[3], row_b_comp[4], wall, "2 : Enter your shoot"
+    )
+    print(
+        'G', wall, row_c_comp[1], row_c_comp[2],
+        row_c_comp[3], row_c_comp[4], wall
+        )
+    print(
+        'H', wall, row_d_comp[1], row_d_comp[2],
+        row_d_comp[3], row_d_comp[4], wall
+        )
     print('+', roof*3, '+')
     print('   ', '1', '2',  '3', '4')
     print(" "*20)
@@ -269,4 +314,3 @@ def play_battle_ship():
 
 
 play_battle_ship()
-
