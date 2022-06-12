@@ -38,16 +38,31 @@ def play_battle_ship():
     ship_counts = 0
 
     while ship_counts < 3:
-        input_player = input(f"where to place ship.\nExample:\
-    {random.choice(['A','B','C','D'])}{random.randint(1, 4)} \
-or {random.choice(['A','B','C','D'])}{random.randint(1, 4)} \n")
-
-        r = re.compile("([a-dA-D]+)([1-4]+)")
-        m = r.match(input_player)
-        ship_row = m.group(1).upper()
-        ship_col = int(m.group(2))
-
+        
         # validate ship position
+        while True:
+            try:
+                input_player = input(f"where to place ship.\nExample:\
+        {random.choice(['A','B','C','D'])}{random.randint(1, 4)}\
+    or {random.choice(['A','B','C','D'])}{random.randint(1, 4)} \n")
+
+                r = re.compile("([a-dA-D]+)([1-4]+)")
+                m = r.match(input_player)
+
+                ship_row = m.group(1).upper()
+                ship_col = m.group(2)
+
+                if (len(ship_row) != 1) and (ship_row not in "ABCD"):
+                    print("Not an appropriate choice.")
+
+                elif ship_col not in "1234":
+                    print("Not an appropriate choice.")
+            except AttributeError:
+                print("Not an appropriate choice.")
+            else:
+                break
+
+        ship_col = int(m.group(2))
 
         # unpack the list number and then dict dict number
         list_rows_a_d[letters_to_int[ship_row]][ship_col] = 'o'
@@ -159,7 +174,7 @@ or {random.choice(['A','B','C','D'])}{random.randint(1, 4)} \n")
         print("COMPUTER", " ", f"SCORE: {score_computer}")
         print(" "*20)
 
-        # random non used place
+        # random non used place to shoot example
         rand_player_shot_letter = random.choice(['E', 'F', 'G', 'H'])
         rand_player_shot_num = random.randint(1, 4)
         
@@ -167,12 +182,31 @@ or {random.choice(['A','B','C','D'])}{random.randint(1, 4)} \n")
             rand_player_shot_letter = random.choice(['E','F','G','H'])
             rand_player_shot_num = random.randint(1, 4)
 
-        input_player = input(f"Where to fire.\nExample: \
-        {rand_player_shot_letter}{rand_player_shot_num}\n")
+        # Validate shoot input data 
+        while True:
+            try:
+                input_player = input(f"Where to fire.\nExample: \
+                {rand_player_shot_letter}{rand_player_shot_num}\n")
 
-        r_f = re.compile("([e-hE-H]+)([1-4]+)")
-        m_f = r_f.match(input_player)
-        shoot_row = m_f.group(1).upper()
+                r_f = re.compile("([e-hE-H]+)([1-4]+)")
+                m_f = r_f.match(input_player)
+                shoot_row = m_f.group(1).upper()
+                shoot_col = m_f.group(2)
+
+                if (len(shoot_row) != 1):
+                    print("Not an appropriate choice.")
+
+                elif shoot_row not in "EFGH":
+                    print("Not an appropriate choice.")
+                elif shoot_col not in "1234":
+                    print("Not an appropriate choice.")
+
+            except AttributeError:
+                print("Not an appropriate choice.")
+
+            else:
+                break
+
         shoot_col = int(m_f.group(2))
 
         #  Player shooting at Computer
@@ -181,7 +215,6 @@ or {random.choice(['A','B','C','D'])}{random.randint(1, 4)} \n")
             score_player += 1
         elif (list_row_comp_hide[comp_letters_to_int[shoot_row]][shoot_col] == '*'):
             list_row_comp[comp_letters_to_int[shoot_row]][shoot_col] = 'm'
-
 
         # Computer shooting at Player
         random_row = random.randint(0, 3)
