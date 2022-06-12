@@ -10,11 +10,14 @@ def play_battle_ship():
     playerboard is made of four dictionary
     * input  where to put ship
     * input where computer shoot
+    * print result
     """
     os.system('cls')
     wall = '|'
     roof = '-=-'
     mine = '¤ '
+    letters_to_int = {'A': 0, 'B': 1, 'C': 2, 'D': 3}
+    comp_letters_to_int = {'E': 0, 'F': 1, 'G': 2, 'H': 3}
 
     # Players water
     row_a = {1: '*', 2: '*', 3: '*', 4: '*'}
@@ -24,7 +27,6 @@ def play_battle_ship():
 
     # Place Player Ship
     list_rows_a_d = [row_a, row_b, row_c, row_d]
-    letters_to_int = {'A': 0, 'B': 1, 'C': 2, 'D': 3}
 
     print('   ', '1', '2', '3', '4')
     print('+', roof*3, '+')
@@ -37,13 +39,15 @@ def play_battle_ship():
 
     while ship_counts < 3:
         input_player = input(f"where to place ship.\nExample:\
-    {random.choice(['A','B','C','D'])}{random.randint(1, 4)} or \
-{random.choice(['A','B','C','D'])}{random.randint(1, 4)} \n")
+    {random.choice(['A','B','C','D'])}{random.randint(1, 4)} \
+or {random.choice(['A','B','C','D'])}{random.randint(1, 4)} \n")
 
         r = re.compile("([a-dA-D]+)([1-4]+)")
         m = r.match(input_player)
         ship_row = m.group(1).upper()
         ship_col = int(m.group(2))
+
+        # validate ship position
 
         # unpack the list number and then dict dict number
         list_rows_a_d[letters_to_int[ship_row]][ship_col] = 'o'
@@ -155,8 +159,16 @@ def play_battle_ship():
         print("COMPUTER", " ", f"SCORE: {score_computer}")
         print(" "*20)
 
+        # random non used place
+        rand_player_shot_letter = random.choice(['E', 'F', 'G', 'H'])
+        rand_player_shot_num = random.randint(1, 4)
+        
+        while list_row_comp[comp_letters_to_int[rand_player_shot_letter]][rand_player_shot_num] != '*':
+            rand_player_shot_letter = random.choice(['E','F','G','H'])
+            rand_player_shot_num = random.randint(1, 4)
+
         input_player = input(f"Where to fire.\nExample: \
-        {random.choice(['E','F','G','H'])}{random.randint(1, 4)}\n")
+        {rand_player_shot_letter}{rand_player_shot_num}\n")
 
         r_f = re.compile("([e-hE-H]+)([1-4]+)")
         m_f = r_f.match(input_player)
@@ -164,7 +176,6 @@ def play_battle_ship():
         shoot_col = int(m_f.group(2))
 
         #  Player shooting at Computer
-        comp_letters_to_int = {'E': 0, 'F': 1, 'G': 2, 'H': 3}
         if (list_row_comp_hide[comp_letters_to_int[shoot_row]][shoot_col] == 'o'):
             list_row_comp[comp_letters_to_int[shoot_row]][shoot_col] = 'x'
             score_player += 1
@@ -225,3 +236,4 @@ def play_battle_ship():
 
 
 play_battle_ship()
+
